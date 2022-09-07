@@ -1,0 +1,53 @@
+
+<!-- saved from url=(0025)https://nega.radioac.dev/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>
+  
+    <title>Invert camera</title>
+    <style type="text/css">
+	    video { 
+			position: fixed;
+			right: 0;
+			bottom: 0;
+			min-width: 100%;
+			min-height: 100%;
+			width: auto;
+			height: auto;
+			z-index: -100;
+			background-size: cover;
+			transition: 1s opacity;
+/* 			-moz-transform: scale(-1, 1);  */
+/* 			-webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1);  */
+/* 			transform: scale(-1, 1);  */
+/* 		    filter: FlipH; */
+		    filter: saturate(400%) contrast(8%) saturate(1000%) contrast(120%) hue-rotate(120deg);
+		}
+        
+    </style>
+
+<div id="container">
+	<video id="video" autoplay="true" playsinline="">
+	</video>
+</div>
+<script>
+var video = document.querySelector("#videoElement");
+
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia)  {
+                var constraints = {
+ 			audio: false, 
+    			video: {
+      			facingMode: 'environment'}                
+			};
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then(function (stream) {
+                        var video = document.querySelector('video');
+                        video.srcObject = stream;
+                        video.onloadedmetadata = function(e) {
+                            video.play();
+                        };
+                    })
+    		.catch(function(err) {
+                        console.log (err);
+                    });
+}
+</script>
+</body></html>
